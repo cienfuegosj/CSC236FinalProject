@@ -6,10 +6,13 @@ Description: Tkinter objects will defined here
 
 from Tkinter import *
 import tkMessageBox
+import time
 
 class FileApp:
 
     def __init__(self, master):
+
+        self.root = master
 
         '''StringVar objects defined here for labels'''
 
@@ -43,6 +46,22 @@ class FileApp:
                 tkMessageBox.showerror("Filename Error", "File could not open. Please try again.")
             else:
                 tkMessageBox.showinfo("Filename Success", filename + " was successfully opened")
+                time.sleep(1)
+                self.root.destroy()
+
+class MainApp:
+
+    def __init__(self, master):
+
+        self.root = master
+
+        frame = Frame(master)
+        frame.pack()
+
+
+
+
+
 
 
 

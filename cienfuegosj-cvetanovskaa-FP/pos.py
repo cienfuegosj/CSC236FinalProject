@@ -1,4 +1,4 @@
-class pos(object):
+class pos:
     '''
     Quick Explanation of what a position object is.
     

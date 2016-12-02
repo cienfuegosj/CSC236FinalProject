@@ -129,8 +129,8 @@ class MainApp:
 
         self.xscalingfactor = self.canvaswidth/self.col
         self.yscalingfactor = self.canvasheight/self.row
-        self.xscalingfactor/=3
-        self.yscalingfactor/=3
+        self.xscalingfactor/=2.8
+        self.yscalingfactor/=2.8
 
         initialcanvasposx = -400
         initialcanvasposy = 300
@@ -360,12 +360,7 @@ class MainApp:
             else:
                 continue
 
-
-
-
-
-
-
+        tkMessageBox._show("Complete", "Congratulations!\nTreasure Found: " + str(len(self.treasures)))
 
 
 

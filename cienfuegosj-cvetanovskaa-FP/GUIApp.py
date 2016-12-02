@@ -10,6 +10,8 @@ from Stack import Stack
 import tkMessageBox
 import copy
 import time
+import turtle
+import math
 
 
 class FileApp:
@@ -99,7 +101,7 @@ class FileApp:
 
 class MainApp:
 
-    def __init__(self, master, content, initialpos):
+    def __init__(self, content, initialpos):
 
         # Functionality Setup
         self.mappings = {}
@@ -111,60 +113,81 @@ class MainApp:
         self.initialpos = initialpos
 
         # GUI Setup
-        self.root = master
-        self.canvaswidth = 700
-        self.canvasheight = 400
         self.row = len(content)
         self.col = len(content[0])
-
-        self.window = PanedWindow(master, orient = VERTICAL,
-                    bd=4,
-                    borderwidth=4)
-        self.window.pack(fill=BOTH, expand=1)
-
-        self.mainpane = Canvas(self.window,
-                        bg="white",
-                        bd=3,
-                        width=self.canvaswidth,
-                        height=self.canvasheight
-                        )
-
+        self.canvaswidth = 700
+        self.canvasheight = 400
+        self.window = turtle.Screen()
+        self.window.screensize(self.canvaswidth,self.canvasheight)
+        self.John = turtle.Turtle()
+        self.John.speed(0)
         self.draw()
-        self.mainpane.pack(side=TOP)
-
+        self.window.exitonclick()
 
 
     def draw(self):
 
-        xscalingfactor = self.canvaswidth/self.col-5
-        yscalingfactor = self.canvasheight/self.row-5
-        xscalingfactor/=2
+        self.xscalingfactor = self.canvaswidth/self.col
+        self.yscalingfactor = self.canvasheight/self.row
+        self.xscalingfactor/=3
+        self.yscalingfactor/=3
 
-        x1 = 10
-        y1 = 10
-        x2 = 10 + xscalingfactor
-        y2 = 10 + yscalingfactor
+        initialcanvasposx = -400
+        initialcanvasposy = 300
+
+        self.currentState.col = initialcanvasposx
+        self.currentState.row = initialcanvasposy
+
+        colors = {"M":"blue", "W":"red", "T":"yellow", ".":"white"}
 
         for i in range(self.row):
+
             for j in range(self.col):
+
                 if self.matrix[i][j] == "M":
-                    self.mappings[(i,j)] = (x1,y1,x2,y2)
-                    self.mainpane.create_oval(x1,y1,x2,y2, fill="blue", outline="blue")
+                    self.mappings[(i,j)] = (self.currentState.col, self.currentState.row)
+                    self.John.pen(fillcolor=colors["M"])
+                    self.John.penup()
+                    self.John.goto(self.currentState.col, self.currentState.row)
+                    self.John.pendown()
+                    self.John.begin_fill()
+                    self.John.circle(math.sqrt(math.pow(self.xscalingfactor, 2) + math.pow(self.yscalingfactor, 2)))
+                    self.John.end_fill()
+
                 elif self.matrix[i][j] == "W":
-                    self.mappings[(i, j)] = (x1, y1, x2, y2)
-                    self.mainpane.create_rectangle(x1,y1,x2,y2, outline="red", fill="red")
+                    self.mappings[(i, j)] = (self.currentState.col, self.currentState.row)
+                    self.John.pen(fillcolor=colors["W"])
+                    self.John.penup()
+                    self.John.goto(self.currentState.col, self.currentState.row)
+                    self.John.pendown()
+                    self.John.begin_fill()
+                    self.John.circle(math.sqrt(math.pow(self.xscalingfactor, 2) + math.pow(self.yscalingfactor, 2)))
+                    self.John.end_fill()
+
                 elif self.matrix[i][j] == "T":
-                    self.mappings[(i, j)] = (x1, y1, x2, y2)
-                    self.mainpane.create_rectangle(x1,y1,x2,y2, fill="#fff517", outline="#fff517")
+                    self.mappings[(i, j)] = (self.currentState.col, self.currentState.row)
+                    self.John.pen(fillcolor=colors["T"])
+                    self.John.penup()
+                    self.John.goto(self.currentState.col, self.currentState.row)
+                    self.John.pendown()
+                    self.John.begin_fill()
+                    self.John.circle(math.sqrt(math.pow(self.xscalingfactor, 2) + math.pow(self.yscalingfactor, 2)))
+                    self.John.end_fill()
+
                 else:
-                    self.mappings[(i, j)] = (x1, y1, x2, y2)
-                    self.mainpane.create_oval(x1,y1,x2,y2, fill="white", outline="white")
-                x1=x1+xscalingfactor+10
-                x2=x2+xscalingfactor+10
-            y1=y1+yscalingfactor+5
-            y2=y2+yscalingfactor+5
-            x1 = 10
-            x2 = 10+xscalingfactor
+                    self.mappings[(i, j)] = (self.currentState.col, self.currentState.row)
+                    self.John.pen(fillcolor=colors["."])
+                    self.John.penup()
+                    self.John.goto(self.currentState.col, self.currentState.row)
+                    self.John.pendown()
+                    self.John.begin_fill()
+                    self.John.circle(math.sqrt(math.pow(self.xscalingfactor, 2) + math.pow(self.yscalingfactor, 2)))
+                    self.John.end_fill()
+
+                self.currentState.col += 2*math.sqrt(math.pow(self.xscalingfactor, 2) + math.pow(self.yscalingfactor, 2))
+
+            self.currentState.col = initialcanvasposx
+            self.currentState.row -= 2*math.sqrt(math.pow(self.xscalingfactor, 2) + math.pow(self.yscalingfactor, 2))
 
         self.gamePlay()
 
@@ -175,49 +198,125 @@ class MainApp:
         '''
 
         if self.matrix[self.nextState.row][self.nextState.col] == "T":
-            # If the next position is treasure then map it to the list of directions it took to get there
-            tkMessageBox.showinfo("Treasure Info", "Treasure has been found!")
             x = copy.deepcopy(self.stackObject.items)
             position = pos(self.nextState.row, self.nextState.col)
             self.treasures[position] = x
 
     def checkPos(self):
 
+
         if self.matrix[self.currentState.row - 1][self.currentState.col] == "." and \
                         self.matrix[self.currentState.row - 1][self.currentState.col] != "B":
             self.stackObject.push(0)
+
+            self.John.pen(fillcolor="white")
+            self.John.penup()
+            self.John.goto(self.mappings[(self.currentState.row,self.currentState.col)][0],self.mappings[(self.currentState.row,self.currentState.col)][1])
+            self.John.pendown()
+            self.John.begin_fill()
+            self.John.circle(math.sqrt(math.pow(self.xscalingfactor, 2) + math.pow(self.yscalingfactor, 2)))
+            self.John.end_fill()
+
             self.currentState.row -= 1
             self.nextState.row = self.currentState.row - 1
             self.nextState.col = self.currentState.col
+
+            self.John.pen(fillcolor="blue")
+            self.John.penup()
+            self.John.goto(self.mappings[(self.currentState.row, self.currentState.col)][0],
+                           self.mappings[(self.currentState.row, self.currentState.col)][1])
+            self.John.pendown()
+            self.John.begin_fill()
+            self.John.circle(math.sqrt(math.pow(self.xscalingfactor, 2) + math.pow(self.yscalingfactor, 2)))
+            self.John.end_fill()
+
             self.matrix[self.currentState.row][self.currentState.col] = "B"
-            self.mainpane.create_oval(self.mappings[(self.currentState.row,self.currentState.col)][0],self.mappings[(self.currentState.row,self.currentState.col)][1],self.mappings[(self.currentState.row,self.currentState.col)][2],self.mappings[(self.currentState.row,self.currentState.col)][3], fill="blue")
             self.checkTreasure()
         elif self.matrix[self.currentState.row][self.currentState.col + 1] == "." and \
                         self.matrix[self.currentState.row][self.currentState.col + 1] != "B":
             self.stackObject.push(1)
+
+            self.John.pen(fillcolor="white")
+            self.John.penup()
+            self.John.goto(self.mappings[(self.currentState.row, self.currentState.col)][0],
+                           self.mappings[(self.currentState.row, self.currentState.col)][1])
+            self.John.pendown()
+            self.John.begin_fill()
+            self.John.circle(math.sqrt(math.pow(self.xscalingfactor, 2) + math.pow(self.yscalingfactor, 2)))
+            self.John.end_fill()
+
             self.currentState.col = self.currentState.col + 1
             self.nextState.row = self.currentState.row
             self.nextState.col = self.currentState.col + 1
+
+            self.John.pen(fillcolor="blue")
+            self.John.penup()
+            self.John.goto(self.mappings[(self.currentState.row, self.currentState.col)][0],
+                           self.mappings[(self.currentState.row, self.currentState.col)][1])
+            self.John.pendown()
+            self.John.begin_fill()
+            self.John.circle(math.sqrt(math.pow(self.xscalingfactor, 2) + math.pow(self.yscalingfactor, 2)))
+            self.John.end_fill()
+
             self.matrix[self.currentState.row][self.currentState.col] = "B"
-            self.mainpane.create_oval(self.mappings[(self.currentState.row,self.currentState.col)][0],self.mappings[(self.currentState.row,self.currentState.col)][1],self.mappings[(self.currentState.row,self.currentState.col)][2],self.mappings[(self.currentState.row,self.currentState.col)][3], fill="blue")
             self.checkTreasure()
         elif self.matrix[self.currentState.row][self.currentState.col - 1] == "." and \
                         self.matrix[self.currentState.row][self.currentState.col - 1] != "B":
             self.stackObject.push(3)
+
+            self.John.pen(fillcolor="white")
+            self.John.penup()
+            self.John.goto(self.mappings[(self.currentState.row, self.currentState.col)][0],
+                           self.mappings[(self.currentState.row, self.currentState.col)][1])
+            self.John.pendown()
+            self.John.begin_fill()
+            self.John.circle(math.sqrt(math.pow(self.xscalingfactor, 2) + math.pow(self.yscalingfactor, 2)))
+            self.John.end_fill()
+
+
             self.currentState.col = self.currentState.col - 1
             self.nextState.row = self.currentState.row
             self.nextState.col = self.currentState.col - 1
+
+            self.John.pen(fillcolor="blue")
+            self.John.penup()
+            self.John.goto(self.mappings[(self.currentState.row, self.currentState.col)][0],
+                           self.mappings[(self.currentState.row, self.currentState.col)][1])
+            self.John.pendown()
+            self.John.begin_fill()
+            self.John.circle(math.sqrt(math.pow(self.xscalingfactor, 2) + math.pow(self.yscalingfactor, 2)))
+            self.John.end_fill()
+
             self.matrix[self.currentState.row][self.currentState.col] = "B"
-            self.mainpane.create_oval(self.mappings[(self.currentState.row,self.currentState.col)][0],self.mappings[(self.currentState.row,self.currentState.col)][1],self.mappings[(self.currentState.row,self.currentState.col)][2],self.mappings[(self.currentState.row,self.currentState.col)][3], fill="blue")
             self.checkTreasure()
         elif self.matrix[self.currentState.row + 1][self.currentState.col] == '.' and \
                         self.matrix[self.currentState.row + 1][self.currentState.col] != "B":
             self.stackObject.push(2)
+
+            self.John.pen(fillcolor="white")
+            self.John.penup()
+            self.John.goto(self.mappings[(self.currentState.row, self.currentState.col)][0],
+                           self.mappings[(self.currentState.row, self.currentState.col)][1])
+            self.John.pendown()
+            self.John.begin_fill()
+            self.John.circle(math.sqrt(math.pow(self.xscalingfactor, 2) + math.pow(self.yscalingfactor, 2)))
+            self.John.end_fill()
+
+
             self.nextState.row = self.currentState.row + 1
             self.nextState.col = self.currentState.col
             self.currentState.row = self.currentState.row + 1
+
+            self.John.pen(fillcolor="blue")
+            self.John.penup()
+            self.John.goto(self.mappings[(self.currentState.row, self.currentState.col)][0],
+                           self.mappings[(self.currentState.row, self.currentState.col)][1])
+            self.John.pendown()
+            self.John.begin_fill()
+            self.John.circle(math.sqrt(math.pow(self.xscalingfactor, 2) + math.pow(self.yscalingfactor, 2)))
+            self.John.end_fill()
+
             self.matrix[self.currentState.row][self.currentState.col] = "B"
-            self.mainpane.create_oval(self.mappings[(self.currentState.row,self.currentState.col)][0],self.mappings[(self.currentState.row,self.currentState.col)][1],self.mappings[(self.currentState.row,self.currentState.col)][2],self.mappings[(self.currentState.row,self.currentState.col)][3], fill="blue")
             self.checkTreasure()
         else:
             return 0

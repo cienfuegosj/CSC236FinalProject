@@ -9,6 +9,7 @@ Javier Cienfuegos
 
 from game import Game
 from GUIApp import *
+import turtle
 
 def main():
 
@@ -28,22 +29,7 @@ def main():
     fileDialog.mainloop()
     content = app.getfileContents()
 
-
-    mainDialog = Tk()
-
-    '''Main Dialog Properties'''
-
-    mainDialog.wm_title("Cave Backtracking")
-    window_width = 700
-    window_height = 500
-    ws = mainDialog.winfo_screenwidth()
-    hs = mainDialog.winfo_screenwidth()
-    x = (ws/2) - (window_width/2)
-    y = (hs/2) - (window_height/2)
-    mainDialog.geometry('%dx%d+%d+%d' % (window_width, window_height, x, y))
-    app = MainApp(mainDialog, content[0], content[1])
-    mainDialog.mainloop()
-
+    main = MainApp(content[0], content[1])
 
 main()
 

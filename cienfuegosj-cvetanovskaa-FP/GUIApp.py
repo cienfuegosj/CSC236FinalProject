@@ -13,7 +13,6 @@ import time
 import turtle
 import math
 
-
 class FileApp:
 
     def __init__(self, master):
@@ -104,15 +103,15 @@ class MainApp:
     def __init__(self, content, initialpos):
 
         # Functionality Setup
-        self.mappings = {}
-        self.currentState = pos()
-        self.nextState = pos()
-        self.treasures = {}
-        self.stackObject = Stack()
-        self.matrix = content
-        self.initialpos = initialpos
+        self.mappings = {} #Mappings of the points in (i,j) coordinates of the matrix to the actual canvas (x,y) coords
+        self.currentState = pos() #Position object that lets us know about the current state
+        self.nextState = pos() #Position object that lets us know about the next state
+        self.treasures = {} #Treasure dictionary that maps out the treasure positions to the path stack
+        self.stackObject = Stack() #Stack object that allows us to store our orientations (North, East, etc.)
+        self.matrix = content #Two dimensional python list to store the rows and columns
+        self.initialpos = initialpos #Position object that lets us know at what point in the matrix we have started
 
-        # GUI Setup
+        # Turtle Window GUI Setup
         self.row = len(content)
         self.col = len(content[0])
         self.canvaswidth = 700
@@ -127,6 +126,8 @@ class MainApp:
 
     def draw(self):
 
+        #Determines what scaling factor to use relative to how many number of columns and rows we have.
+
         self.xscalingfactor = self.canvaswidth/self.col
         self.yscalingfactor = self.canvasheight/self.row
         self.xscalingfactor/=2.8
@@ -138,7 +139,21 @@ class MainApp:
         self.currentState.col = initialcanvasposx
         self.currentState.row = initialcanvasposy
 
+        '''
+        M represents where we have started
+        W represents the walls which we are confined
+        T represents a treasure object
+        . represents our path
+        '''
+
         colors = {"M":"blue", "W":"red", "T":"yellow", ".":"white"}
+
+        '''
+        The following code goes through the matrix, stores the (i,j) position and maps it to the actual coordinate position
+        Then, a circle is drawn with a radius of R = sqrt(x^2 + y^2). The colors of the fill are determined by what letter is
+        read from the matrix. We then move 2*R to the right in order to arrive at the next position of drawing. We then lower the
+        y value by reducing the currentState's column value by 2*R and resetting the x value to the original x position on the canvas.
+        '''
 
         for i in range(self.row):
 
@@ -196,7 +211,6 @@ class MainApp:
         No pre conditions are made for this method.
         :return: notifies the user that we found treasure and we store the steps.
         '''
-
         if self.matrix[self.nextState.row][self.nextState.col] == "T":
             x = copy.deepcopy(self.stackObject.items)
             position = pos(self.nextState.row, self.nextState.col)
@@ -204,12 +218,12 @@ class MainApp:
 
     def checkPos(self):
 
-
+        # North Conditional
         if self.matrix[self.currentState.row - 1][self.currentState.col] == "." and \
                         self.matrix[self.currentState.row - 1][self.currentState.col] != "B":
             self.stackObject.push(0)
 
-            self.John.pen(fillcolor="white")
+            self.John.pen(fillcolor="blue")
             self.John.penup()
             self.John.goto(self.mappings[(self.currentState.row,self.currentState.col)][0],self.mappings[(self.currentState.row,self.currentState.col)][1])
             self.John.pendown()
@@ -232,11 +246,12 @@ class MainApp:
 
             self.matrix[self.currentState.row][self.currentState.col] = "B"
             self.checkTreasure()
+        # EAST Conditional
         elif self.matrix[self.currentState.row][self.currentState.col + 1] == "." and \
                         self.matrix[self.currentState.row][self.currentState.col + 1] != "B":
             self.stackObject.push(1)
 
-            self.John.pen(fillcolor="white")
+            self.John.pen(fillcolor="blue")
             self.John.penup()
             self.John.goto(self.mappings[(self.currentState.row, self.currentState.col)][0],
                            self.mappings[(self.currentState.row, self.currentState.col)][1])
@@ -260,11 +275,12 @@ class MainApp:
 
             self.matrix[self.currentState.row][self.currentState.col] = "B"
             self.checkTreasure()
+        # West Conditional
         elif self.matrix[self.currentState.row][self.currentState.col - 1] == "." and \
                         self.matrix[self.currentState.row][self.currentState.col - 1] != "B":
             self.stackObject.push(3)
 
-            self.John.pen(fillcolor="white")
+            self.John.pen(fillcolor="blue")
             self.John.penup()
             self.John.goto(self.mappings[(self.currentState.row, self.currentState.col)][0],
                            self.mappings[(self.currentState.row, self.currentState.col)][1])
@@ -272,7 +288,6 @@ class MainApp:
             self.John.begin_fill()
             self.John.circle(math.sqrt(math.pow(self.xscalingfactor, 2) + math.pow(self.yscalingfactor, 2)))
             self.John.end_fill()
-
 
             self.currentState.col = self.currentState.col - 1
             self.nextState.row = self.currentState.row
@@ -289,11 +304,12 @@ class MainApp:
 
             self.matrix[self.currentState.row][self.currentState.col] = "B"
             self.checkTreasure()
+        # South Conditional
         elif self.matrix[self.currentState.row + 1][self.currentState.col] == '.' and \
                         self.matrix[self.currentState.row + 1][self.currentState.col] != "B":
             self.stackObject.push(2)
 
-            self.John.pen(fillcolor="white")
+            self.John.pen(fillcolor="blue")
             self.John.penup()
             self.John.goto(self.mappings[(self.currentState.row, self.currentState.col)][0],
                            self.mappings[(self.currentState.row, self.currentState.col)][1])
@@ -302,10 +318,9 @@ class MainApp:
             self.John.circle(math.sqrt(math.pow(self.xscalingfactor, 2) + math.pow(self.yscalingfactor, 2)))
             self.John.end_fill()
 
-
+            self.currentState.row = self.currentState.row + 1
             self.nextState.row = self.currentState.row + 1
             self.nextState.col = self.currentState.col
-            self.currentState.row = self.currentState.row + 1
 
             self.John.pen(fillcolor="blue")
             self.John.penup()
@@ -317,6 +332,7 @@ class MainApp:
             self.John.end_fill()
 
             self.matrix[self.currentState.row][self.currentState.col] = "B"
+
             self.checkTreasure()
         else:
             return 0
@@ -335,12 +351,8 @@ class MainApp:
             if move == 0:  # Condition if there is no move.
 
                 if self.stackObject.size() == 0:
-
-                    print("Treasure Path List: ")
                     for key in list(self.treasures.keys()):
                         print(self.treasures[key])
-
-                    print("That's all folks!")
                     break
 
                 else:

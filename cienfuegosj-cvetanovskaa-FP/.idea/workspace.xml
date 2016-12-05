@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="590300ae-e9cd-49b5-9bdc-5fabc01d67f5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cave Maps/cave_sampleB.txt" afterPath="$PROJECT_DIR$/Cave Maps/cave_sampleB.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cave Maps/cave_sampleC.txt" afterPath="$PROJECT_DIR$/Cave Maps/cave_sampleC.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GUIApp.py" afterPath="$PROJECT_DIR$/GUIApp.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
     </list>
     <ignored path="cienfuegosj-cvetanovskaa-L02.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,11 +28,11 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="31" column="42" selection-start-line="31" selection-start-column="42" selection-end-line="31" selection-end-column="42" />
+            <state relative-caret-position="414">
+              <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
               <folding>
                 <element signature="e#153#174#0" expanded="true" />
-                <marker date="1480659807000" expanded="true" signature="209:210" ph="..." />
+                <marker date="1480950174000" expanded="true" signature="209:210" ph="..." />
               </folding>
             </state>
           </provider>
@@ -39,8 +41,8 @@
       <file leaf-file-name="GUIApp.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GUIApp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3300">
-              <caret line="310" column="0" selection-start-line="310" selection-start-column="0" selection-end-line="310" selection-end-column="0" />
+            <state relative-caret-position="-1956">
+              <caret line="214" column="110" selection-start-line="214" selection-start-column="110" selection-end-line="214" selection-end-column="110" />
               <folding>
                 <element signature="e#281#3450#0" expanded="false" />
               </folding>
@@ -51,8 +53,18 @@
       <file leaf-file-name="cave_sampleB.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Cave Maps/cave_sampleB.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+            <state relative-caret-position="60">
+              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cave_sampleC.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Cave Maps/cave_sampleC.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="9" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -119,6 +131,7 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/Cave Maps/cave_sampleB.txt" />
+        <option value="$PROJECT_DIR$/Cave Maps/cave_sampleC.txt" />
         <option value="$PROJECT_DIR$/GUIApp.py" />
       </list>
     </option>
@@ -436,7 +449,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32945737" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.114230394" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11420983" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -500,7 +513,7 @@
           <caret line="43" column="11" selection-start-line="43" selection-start-column="11" selection-end-line="43" selection-end-column="11" />
           <folding>
             <element signature="e#153#174#0" expanded="true" />
-            <marker date="1480659807000" expanded="true" signature="209:210" ph="..." />
+            <marker date="1480950174000" expanded="true" signature="209:210" ph="..." />
           </folding>
         </state>
       </provider>
@@ -544,7 +557,7 @@
           <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
           <folding>
             <element signature="e#153#174#0" expanded="true" />
-            <marker date="1480659807000" expanded="true" signature="209:210" ph="..." />
+            <marker date="1480950174000" expanded="true" signature="209:210" ph="..." />
           </folding>
         </state>
       </provider>
@@ -588,7 +601,7 @@
           <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
           <folding>
             <element signature="e#153#174#0" expanded="true" />
-            <marker date="1480659807000" expanded="true" signature="209:210" ph="..." />
+            <marker date="1480950174000" expanded="true" signature="209:210" ph="..." />
           </folding>
         </state>
       </provider>
@@ -632,7 +645,7 @@
           <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
           <folding>
             <element signature="e#153#174#0" expanded="true" />
-            <marker date="1480659807000" expanded="true" signature="209:210" ph="..." />
+            <marker date="1480950174000" expanded="true" signature="209:210" ph="..." />
           </folding>
         </state>
       </provider>
@@ -764,25 +777,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Cave Maps/cave_sampleC.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="6" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Stack.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Cave Maps/cave_sampleB.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
           <folding />
         </state>
       </provider>
@@ -813,19 +811,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="31" column="42" selection-start-line="31" selection-start-column="42" selection-end-line="31" selection-end-column="42" />
+        <state relative-caret-position="414">
+          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
           <folding>
             <element signature="e#153#174#0" expanded="true" />
-            <marker date="1480659807000" expanded="true" signature="209:210" ph="..." />
+            <marker date="1480950174000" expanded="true" signature="209:210" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Cave Maps/cave_sampleB.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Cave Maps/cave_sampleC.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="9" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/GUIApp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3300">
-          <caret line="310" column="0" selection-start-line="310" selection-start-column="0" selection-end-line="310" selection-end-column="0" />
+        <state relative-caret-position="-1956">
+          <caret line="214" column="110" selection-start-line="214" selection-start-column="110" selection-end-line="214" selection-end-column="110" />
           <folding>
             <element signature="e#281#3450#0" expanded="false" />
           </folding>

@@ -114,10 +114,10 @@ class MainApp:
         # Turtle Window GUI Setup
         self.row = len(content)
         self.col = len(content[0])
-        self.canvaswidth = 700
-        self.canvasheight = 400
+        self.canvaswidth = 1500
+        self.canvasheight = 1500
         self.window = turtle.Screen()
-        self.window.screensize(self.canvaswidth,self.canvasheight)
+        self.window.setup(width=self.canvaswidth,height=self.canvasheight)
         self.John = turtle.Turtle()
         self.John.speed(0)
         self.draw()
@@ -130,8 +130,8 @@ class MainApp:
 
         self.xscalingfactor = self.canvaswidth/self.col
         self.yscalingfactor = self.canvasheight/self.row
-        self.xscalingfactor/=2.8
-        self.yscalingfactor/=2.8
+        self.xscalingfactor/=7
+        self.yscalingfactor/=7
 
         initialcanvasposx = -400
         initialcanvasposy = 300
@@ -212,6 +212,7 @@ class MainApp:
         :return: notifies the user that we found treasure and we store the steps.
         '''
         if self.matrix[self.nextState.row][self.nextState.col] == "T":
+            tkMessageBox._show("Found", "Found at " + str(self.nextState.row) + "," + str(self.nextState.col))
             x = copy.deepcopy(self.stackObject.items)
             position = pos(self.nextState.row, self.nextState.col)
             self.treasures[position] = x
@@ -233,6 +234,7 @@ class MainApp:
 
             self.currentState.row -= 1
             self.nextState.row = self.currentState.row - 1
+            self.checkTreasure()
             self.nextState.col = self.currentState.col
 
             self.John.pen(fillcolor="blue")
@@ -262,6 +264,7 @@ class MainApp:
 
             self.currentState.col = self.currentState.col + 1
             self.nextState.row = self.currentState.row
+            self.checkTreasure()
             self.nextState.col = self.currentState.col + 1
 
             self.John.pen(fillcolor="blue")
@@ -291,6 +294,7 @@ class MainApp:
 
             self.currentState.col = self.currentState.col - 1
             self.nextState.row = self.currentState.row
+            self.checkTreasure()
             self.nextState.col = self.currentState.col - 1
 
             self.John.pen(fillcolor="blue")
@@ -320,7 +324,9 @@ class MainApp:
 
             self.currentState.row = self.currentState.row + 1
             self.nextState.row = self.currentState.row + 1
+            self.checkTreasure()
             self.nextState.col = self.currentState.col
+            self.checkTreasure()
 
             self.John.pen(fillcolor="blue")
             self.John.penup()

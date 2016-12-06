@@ -1,0 +1,16 @@
+Instructions
+
+This is an extended and graphical version of the cave backtracking assignment done earlier.
+The only user interaction needed for this project is for the user to enter what file
+name to use. There are three files that the user can choose from.
+
+1.) cave_sampleA.txt
+2.) cave_sampleB.txt
+3.) cave_sampleC.txt
+
+Also, the user gets to choose what colors they want to use in the application.
+All you have to do is go through each list box and select which color do you want
+the corresponding element of the map to have.
+
+After pressing 'Submit', the application will run and the user can watch how the logic is
+used within the turtle library.

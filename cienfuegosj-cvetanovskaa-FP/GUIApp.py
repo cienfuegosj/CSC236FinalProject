@@ -1,7 +1,14 @@
 '''
-Authors: Javier Cienfuegos & Aleksandra Cvetanovska
+Authors: Aleksandra Cvetanovska and Javier Cienfuegos
 File: GUIApp.py
-Description: Tkinter objects will defined here
+Description: This is the GUI application python file that has two implicit applications instantiated in.
+Overall, this file allows us to define the settings for the two application objects used, mainly the tkinter object and
+turtle window object. This file also includes all the game logic that will allow the windows to have the user interaction AND
+the drawing logic. These are the following functions that were included from the cave backtracking assignment:
+
+checkTreasure()
+checkPos()
+gamePlay()
 '''
 
 from Tkinter import *
@@ -14,31 +21,50 @@ import turtle
 import math
 
 class FileApp:
+    '''
+    This class encapsulates all the logic and instantiation of the file dialog application.
+    In this class, we create the graphical user interface, extract the filename that the user enters,
+    read the file contents, and use a value-returning function to send the contents back to the main file
+    '''
 
     def __init__(self, master):
-
+        '''
+        Constructor method for the FileApp object. This method will take in the parameter master, a tk a object,
+        and create the graphical user interface.
+        :param master:
+        '''
         self.root = master
         self.f = None
 
+        # Set the file name label text
         lbl_filename = StringVar()
         lbl_filename.set("Enter filename: ")
 
         emptyString = StringVar()
         emptyString.set("")
 
+        # Instantiate a Frame object of tkinter class
         frame = Frame(master)
         frame.pack()
 
+        # Create the file name label
         self.lbl_filename = Label(master, textvariable = lbl_filename, anchor = W, justify=LEFT)
         self.lbl_filename.pack()
 
+        # Create the text box for the file name
         self.tbox_filename = Entry(master, textvariable = emptyString)
         self.tbox_filename.pack()
 
+        # Create the button to initiate game
         self.btn_filesubmit = Button(master, justify=CENTER, text = "Submit", command = self.fileSubmitcallback)
         self.btn_filesubmit.pack()
 
     def fileSubmitcallback(self):
+        '''
+        Callback function for the __init__ method that will allow us to open the file which the user has provided.
+        We try to open the file. If we do, we destroy the application, if not, we give an error.
+        :return:
+        '''
 
         if self.tbox_filename.get() == "":
             tkMessageBox.showerror("Filename Error", "Please fill out the text field.")
@@ -51,7 +77,7 @@ class FileApp:
             else:
                 tkMessageBox.showinfo("Filename Success", filename + " was successfully opened")
                 time.sleep(1.5)
-                self.root.destroy()
+                self.root.destroy() # Destroy the application
 
 
     def getfileContents(self):
@@ -98,9 +124,177 @@ class FileApp:
 
         return (matrix, initialpos)
 
-class MainApp:
+class EditorApp:
+    '''
+    Editor Application class that allows us to encapsulate the tkinter object and intialize
+    its properties and bindings. Most of the data retrieval is done here and the only
+    external usage of this class is the getcolors method which gets the colors assigned
+    by the user in the GUI.
+    '''
 
-    def __init__(self, content, initialpos):
+    def __init__(self, master):
+
+        tkMessageBox._show("Instructions", "Please select a color for each entry. List boxes"
+                                           " do not keep their visual selection, but they are"
+                                           " registered. Press Submit when finished.")
+
+        self.root = master
+
+        # Set the file name label text
+        lbl_wallcolor = "Wall Color: "
+
+        lbl_treasurecolor ="Treasure Color: "
+
+        lbl_pathcolor = "Path Color: "
+
+        lbl_traversecolor = "Traverse Color: "
+
+
+        self.lbl_wallcolor = LabelFrame(master, text=lbl_wallcolor)
+        self.lbl_wallcolor.pack()
+
+        self.lbox_wallcolor = Listbox(self.lbl_wallcolor,selectmode=BROWSE)
+        self.lbox_wallcolor.insert(1, "red")
+        self.lbox_wallcolor.insert(2, "brown")
+        self.lbox_wallcolor.insert(3, "purple")
+        self.lbox_wallcolor.insert(4, "orange")
+        self.lbox_wallcolor.insert(5, "yellow")
+        self.lbox_wallcolor.insert(6, "green")
+        self.lbox_wallcolor.insert(7, "white")
+
+        self.lbl_treasurecolor = LabelFrame(master, text=lbl_treasurecolor)
+        self.lbl_treasurecolor.pack()
+
+        self.lbox_treasurecolor = Listbox(self.lbl_treasurecolor,selectmode=BROWSE)
+        self.lbox_treasurecolor.insert(1, "red")
+        self.lbox_treasurecolor.insert(2, "brown")
+        self.lbox_treasurecolor.insert(3, "purple")
+        self.lbox_treasurecolor.insert(4, "orange")
+        self.lbox_treasurecolor.insert(5, "yellow")
+        self.lbox_treasurecolor.insert(6, "green")
+        self.lbox_treasurecolor.insert(7, "white")
+
+        self.lbl_pathcolor = LabelFrame(master, text=lbl_pathcolor)
+        self.lbl_pathcolor.pack()
+
+        self.lbox_pathcolor = Listbox(self.lbl_pathcolor,selectmode=BROWSE)
+        self.lbox_pathcolor.insert(1, "red")
+        self.lbox_pathcolor.insert(2, "brown")
+        self.lbox_pathcolor.insert(3, "purple")
+        self.lbox_pathcolor.insert(4, "orange")
+        self.lbox_pathcolor.insert(5, "yellow")
+        self.lbox_pathcolor.insert(6, "green")
+        self.lbox_pathcolor.insert(7, "white")
+
+        self.lbl_traversecolor = LabelFrame(master, text=lbl_traversecolor)
+        self.lbl_traversecolor.pack()
+
+        self.lbox_traversecolor = Listbox(self.lbl_traversecolor,selectmode=BROWSE)
+        self.lbox_traversecolor.insert(1, "red")
+        self.lbox_traversecolor.insert(2, "brown")
+        self.lbox_traversecolor.insert(3, "purple")
+        self.lbox_traversecolor.insert(4, "orange")
+        self.lbox_traversecolor.insert(5, "yellow")
+        self.lbox_traversecolor.insert(6, "green")
+        self.lbox_traversecolor.insert(7, "white")
+
+        self.lbox_wallcolor.pack()
+        self.lbox_treasurecolor.pack()
+        self.lbox_pathcolor.pack()
+        self.lbox_traversecolor.pack()
+
+        self.btn_return = Button(self.lbl_traversecolor, justify=CENTER, text = "Submit", command = self.setcolors)
+        self.btn_return.pack()
+
+        self.lbox_wallcolor.bind('<ButtonRelease-1>', self.get_w)
+        self.lbox_pathcolor.bind('<ButtonRelease-1>', self.get_p)
+        self.lbox_treasurecolor.bind('<ButtonRelease-1>', self.get_t)
+        self.lbox_traversecolor.bind('<ButtonRelease-1>', self.get_tr)
+
+    def get_w(self, event):
+        """
+        Method to get the w entry in order to dedicate colors for the specific wall element
+        of the matrix
+        Note:
+        W = Wall
+        :return No return
+        """
+
+        windex = self.lbox_wallcolor.curselection()[0]
+        self.lbox_wallcolor.activate(windex)
+        self.wseltext = self.lbox_wallcolor.get(windex)
+        tkMessageBox._show("Input Info.", "Wall color: " + str(self.wseltext))
+
+
+    def get_t(self, event):
+        '''
+        Method to get the t entry in order to dedicate colors for the treasure element
+        of the matrix
+        :param event: Binding event for the key press
+        :return: No return
+        '''
+
+        tindex = self.lbox_treasurecolor.curselection()[0]
+        self.lbox_treasurecolor.activate(tindex)
+        self.tseltext = self.lbox_treasurecolor.get(tindex)
+        tkMessageBox._show("Input Info.", "Treasure color: " + str(self.tseltext))
+
+
+    def get_tr(self, event):
+        '''
+        Method to get the tr entry in order to dedicate colors for the traverse element
+        of the matrix
+        :param event: Binding evenet for the key press
+        :return: No return
+        '''
+
+        trindex = self.lbox_traversecolor.curselection()[0]
+        self.lbox_traversecolor.activate(trindex)
+        self.trseltext = self.lbox_traversecolor.get(trindex)
+        tkMessageBox._show("Input Info.", "Traverse color: " + str(self.trseltext))
+
+
+    def get_p(self, event):
+        '''
+        Method to get the p entry in order to dedicate colors for the path element of the
+        matrix
+        :param event: Binding event for the key press
+        :return: No return
+        '''
+
+        pindex = self.lbox_pathcolor.curselection()[0]
+        self.lbox_pathcolor.activate(pindex)
+        self.pseltext = self.lbox_pathcolor.get(pindex)
+        tkMessageBox._show("Input Info.", "Path color: " + str(self.pseltext))
+
+
+    def setcolors(self):
+        '''
+        Sets the colors of the entries and places them in a dictionary.
+        :return: No return
+        '''
+
+        self.colors = {"W": self.wseltext, "T": self.tseltext, "M": "blue", ".": self.pseltext, "TR": self.trseltext}
+        tkMessageBox._show("Redirect", "Processed! Please select OK.")
+        self.root.destroy()
+
+    def getcolors(self):
+        '''
+        Returns the value of the instance variable 'colors', which is a dictionary that maps out
+        the colors to the corresponding matrix elements.
+        :return: No return
+        '''
+
+        return self.colors
+
+class MainApp:
+    '''
+    An application object that encapsulates all of the drawing functionalities and
+    logic for the backtracking. We draw in this class and utilize the methods used
+    in the backtracking cave assignment.
+    '''
+
+    def __init__(self, content, initialpos, colors):
 
         # Functionality Setup
         self.mappings = {} #Mappings of the points in (i,j) coordinates of the matrix to the actual canvas (x,y) coords
@@ -110,6 +304,13 @@ class MainApp:
         self.stackObject = Stack() #Stack object that allows us to store our orientations (North, East, etc.)
         self.matrix = content #Two dimensional python list to store the rows and columns
         self.initialpos = initialpos #Position object that lets us know at what point in the matrix we have started
+        self.colors = colors
+
+        # Check if colors are not empty
+        for item in self.colors:
+            if self.colors[item] is None or self.colors[item] == "":
+                self.colors = {"W": "red", "M": "blue", "T": "yellow", ".": "white", "TR": "blue"}
+                break
 
         # Turtle Window GUI Setup
         self.row = len(content)
@@ -120,6 +321,7 @@ class MainApp:
         self.window.setup(width=self.canvaswidth,height=self.canvasheight)
         self.John = turtle.Turtle()
         self.John.speed(0)
+
         self.draw()
         self.window.exitonclick()
 
@@ -146,8 +348,6 @@ class MainApp:
         . represents our path
         '''
 
-        colors = {"M":"blue", "W":"red", "T":"yellow", ".":"white"}
-
         '''
         The following code goes through the matrix, stores the (i,j) position and maps it to the actual coordinate position
         Then, a circle is drawn with a radius of R = sqrt(x^2 + y^2). The colors of the fill are determined by what letter is
@@ -161,7 +361,7 @@ class MainApp:
 
                 if self.matrix[i][j] == "M":
                     self.mappings[(i,j)] = (self.currentState.col, self.currentState.row)
-                    self.John.pen(fillcolor=colors["M"])
+                    self.John.pen(fillcolor=self.colors["M"])
                     self.John.penup()
                     self.John.goto(self.currentState.col, self.currentState.row)
                     self.John.pendown()
@@ -171,7 +371,7 @@ class MainApp:
 
                 elif self.matrix[i][j] == "W":
                     self.mappings[(i, j)] = (self.currentState.col, self.currentState.row)
-                    self.John.pen(fillcolor=colors["W"])
+                    self.John.pen(fillcolor=self.colors["W"])
                     self.John.penup()
                     self.John.goto(self.currentState.col, self.currentState.row)
                     self.John.pendown()
@@ -181,7 +381,7 @@ class MainApp:
 
                 elif self.matrix[i][j] == "T":
                     self.mappings[(i, j)] = (self.currentState.col, self.currentState.row)
-                    self.John.pen(fillcolor=colors["T"])
+                    self.John.pen(fillcolor=self.colors["T"])
                     self.John.penup()
                     self.John.goto(self.currentState.col, self.currentState.row)
                     self.John.pendown()
@@ -191,7 +391,7 @@ class MainApp:
 
                 else:
                     self.mappings[(i, j)] = (self.currentState.col, self.currentState.row)
-                    self.John.pen(fillcolor=colors["."])
+                    self.John.pen(fillcolor=self.colors["."])
                     self.John.penup()
                     self.John.goto(self.currentState.col, self.currentState.row)
                     self.John.pendown()
@@ -211,20 +411,26 @@ class MainApp:
         No pre conditions are made for this method.
         :return: notifies the user that we found treasure and we store the steps.
         '''
-        if self.matrix[self.nextState.row][self.nextState.col] == "T":
-            tkMessageBox._show("Found", "Found at " + str(self.nextState.row) + "," + str(self.nextState.col))
+        if self.matrix[self.nextState.row][self.nextState.col] ==  "T":
             x = copy.deepcopy(self.stackObject.items)
             position = pos(self.nextState.row, self.nextState.col)
             self.treasures[position] = x
 
     def checkPos(self):
+        '''
+        Checks the positions surrounding in order to find out where to go. We call this method our finding/logic method
+        which determines where to go in our map. This method was used in the previous assignment: Cave Backtracking.
+        Once we encounter a conditional in which our current position applies to, we draw a circle that is blue to
+        represent that we have been there.
+        :return:
+        '''
 
         # North Conditional
         if self.matrix[self.currentState.row - 1][self.currentState.col] == "." and \
                         self.matrix[self.currentState.row - 1][self.currentState.col] != "B":
             self.stackObject.push(0)
 
-            self.John.pen(fillcolor="blue")
+            self.John.pen(fillcolor=self.colors['TR'])
             self.John.penup()
             self.John.goto(self.mappings[(self.currentState.row,self.currentState.col)][0],self.mappings[(self.currentState.row,self.currentState.col)][1])
             self.John.pendown()
@@ -234,10 +440,9 @@ class MainApp:
 
             self.currentState.row -= 1
             self.nextState.row = self.currentState.row - 1
-            self.checkTreasure()
             self.nextState.col = self.currentState.col
 
-            self.John.pen(fillcolor="blue")
+            self.John.pen(fillcolor=self.colors['TR'])
             self.John.penup()
             self.John.goto(self.mappings[(self.currentState.row, self.currentState.col)][0],
                            self.mappings[(self.currentState.row, self.currentState.col)][1])
@@ -253,7 +458,7 @@ class MainApp:
                         self.matrix[self.currentState.row][self.currentState.col + 1] != "B":
             self.stackObject.push(1)
 
-            self.John.pen(fillcolor="blue")
+            self.John.pen(fillcolor=self.colors['TR'])
             self.John.penup()
             self.John.goto(self.mappings[(self.currentState.row, self.currentState.col)][0],
                            self.mappings[(self.currentState.row, self.currentState.col)][1])
@@ -264,10 +469,9 @@ class MainApp:
 
             self.currentState.col = self.currentState.col + 1
             self.nextState.row = self.currentState.row
-            self.checkTreasure()
             self.nextState.col = self.currentState.col + 1
 
-            self.John.pen(fillcolor="blue")
+            self.John.pen(fillcolor=self.colors['TR'])
             self.John.penup()
             self.John.goto(self.mappings[(self.currentState.row, self.currentState.col)][0],
                            self.mappings[(self.currentState.row, self.currentState.col)][1])
@@ -283,7 +487,7 @@ class MainApp:
                         self.matrix[self.currentState.row][self.currentState.col - 1] != "B":
             self.stackObject.push(3)
 
-            self.John.pen(fillcolor="blue")
+            self.John.pen(fillcolor=self.colors['TR'])
             self.John.penup()
             self.John.goto(self.mappings[(self.currentState.row, self.currentState.col)][0],
                            self.mappings[(self.currentState.row, self.currentState.col)][1])
@@ -294,10 +498,9 @@ class MainApp:
 
             self.currentState.col = self.currentState.col - 1
             self.nextState.row = self.currentState.row
-            self.checkTreasure()
             self.nextState.col = self.currentState.col - 1
 
-            self.John.pen(fillcolor="blue")
+            self.John.pen(fillcolor=self.colors['TR'])
             self.John.penup()
             self.John.goto(self.mappings[(self.currentState.row, self.currentState.col)][0],
                            self.mappings[(self.currentState.row, self.currentState.col)][1])
@@ -313,7 +516,7 @@ class MainApp:
                         self.matrix[self.currentState.row + 1][self.currentState.col] != "B":
             self.stackObject.push(2)
 
-            self.John.pen(fillcolor="blue")
+            self.John.pen(fillcolor=self.colors['TR'])
             self.John.penup()
             self.John.goto(self.mappings[(self.currentState.row, self.currentState.col)][0],
                            self.mappings[(self.currentState.row, self.currentState.col)][1])
@@ -324,11 +527,9 @@ class MainApp:
 
             self.currentState.row = self.currentState.row + 1
             self.nextState.row = self.currentState.row + 1
-            self.checkTreasure()
             self.nextState.col = self.currentState.col
-            self.checkTreasure()
 
-            self.John.pen(fillcolor="blue")
+            self.John.pen(fillcolor=self.colors['TR'])
             self.John.penup()
             self.John.goto(self.mappings[(self.currentState.row, self.currentState.col)][0],
                            self.mappings[(self.currentState.row, self.currentState.col)][1])
@@ -354,19 +555,19 @@ class MainApp:
 
         while True:
             move = self.checkPos()
+
             if move == 0:  # Condition if there is no move.
 
                 if self.stackObject.size() == 0:
-                    for key in list(self.treasures.keys()):
-                        print(self.treasures[key])
                     break
-
                 else:
                     item = self.stackObject.pop()
 
                     # ---------Backtrack Process------------
                     # 0 represents that we went NORTH, so we need to go down, so row increase
-                    # 1 represents that we went EAST, so we need
+                    # 1 represents that we went EAST, so we need to decrease the column
+                    # 2 represent the we went SOUTH, so we need to row decrease
+                    # 3 represent that we went WEST, so we need to increase the column
                     if item == 0:
                         self.currentState.row += 1
                     elif item == 1:
@@ -378,7 +579,9 @@ class MainApp:
             else:
                 continue
 
-        tkMessageBox._show("Complete", "Congratulations!\nTreasure Found: " + str(len(self.treasures)))
+
+
+        tkMessageBox._show("Complete", "Congratulations!")
 
 
 

@@ -6,7 +6,7 @@ Javier Cienfuegos
 @author: cienfuegosj
 """
 
-from game import Game
+
 from GUIApp import *
 import turtle
 

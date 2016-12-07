@@ -153,7 +153,7 @@ class EditorApp:
         self.lbl_wallcolor = LabelFrame(master, text=lbl_wallcolor)
         self.lbl_wallcolor.pack()
 
-        self.lbox_wallcolor = Listbox(self.lbl_wallcolor,selectmode=BROWSE)
+        self.lbox_wallcolor = Listbox(self.lbl_wallcolor,selectmode=BROWSE,height=7)
         self.lbox_wallcolor.insert(1, "red")
         self.lbox_wallcolor.insert(2, "brown")
         self.lbox_wallcolor.insert(3, "purple")
@@ -165,7 +165,7 @@ class EditorApp:
         self.lbl_treasurecolor = LabelFrame(master, text=lbl_treasurecolor)
         self.lbl_treasurecolor.pack()
 
-        self.lbox_treasurecolor = Listbox(self.lbl_treasurecolor,selectmode=BROWSE)
+        self.lbox_treasurecolor = Listbox(self.lbl_treasurecolor,selectmode=BROWSE,height=7)
         self.lbox_treasurecolor.insert(1, "red")
         self.lbox_treasurecolor.insert(2, "brown")
         self.lbox_treasurecolor.insert(3, "purple")
@@ -177,7 +177,7 @@ class EditorApp:
         self.lbl_pathcolor = LabelFrame(master, text=lbl_pathcolor)
         self.lbl_pathcolor.pack()
 
-        self.lbox_pathcolor = Listbox(self.lbl_pathcolor,selectmode=BROWSE)
+        self.lbox_pathcolor = Listbox(self.lbl_pathcolor,selectmode=BROWSE,height=7)
         self.lbox_pathcolor.insert(1, "red")
         self.lbox_pathcolor.insert(2, "brown")
         self.lbox_pathcolor.insert(3, "purple")
@@ -189,7 +189,7 @@ class EditorApp:
         self.lbl_traversecolor = LabelFrame(master, text=lbl_traversecolor)
         self.lbl_traversecolor.pack()
 
-        self.lbox_traversecolor = Listbox(self.lbl_traversecolor,selectmode=BROWSE)
+        self.lbox_traversecolor = Listbox(self.lbl_traversecolor,selectmode=BROWSE,height=7)
         self.lbox_traversecolor.insert(1, "red")
         self.lbox_traversecolor.insert(2, "brown")
         self.lbox_traversecolor.insert(3, "purple")
@@ -229,7 +229,7 @@ class EditorApp:
     def get_t(self, event):
         '''
         Method to get the t entry in order to dedicate colors for the treasure element
-        of the matrix
+        of the matrix.
         :param event: Binding event for the key press
         :return: No return
         '''
@@ -244,7 +244,7 @@ class EditorApp:
         '''
         Method to get the tr entry in order to dedicate colors for the traverse element
         of the matrix
-        :param event: Binding evenet for the key press
+        :param event: Binding event for the key press
         :return: No return
         '''
 

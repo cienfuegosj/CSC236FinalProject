@@ -38,7 +38,7 @@ def main():
 
     EditorDialog.wm_title("Editor Dialog")
     window_width = 500
-    window_height = 900
+    window_height = 1000
     ws = EditorDialog.winfo_width()
     hs = EditorDialog.winfo_height()
     x = (ws / 2) - (window_width / 2)
